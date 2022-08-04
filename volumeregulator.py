@@ -2,13 +2,16 @@ from time import sleep
 import hid
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 import configparser
+import os
+
+dirname = os.path.dirname(__file__)
 
 config = configparser.ConfigParser()
 
 try:
-    config.read("config.ini")
+    config.read(f"{dirname}/config.ini")
 except:
-    with open("config.ini", "w") as f:
+    with open(f"{dirname}/config.ini", "w") as f:
         f.write("""
             [device]
             vendor_id = 9025
@@ -33,7 +36,7 @@ except:
     
     print("Created default config file")
 
-    config.read("config.ini")
+    config.read(f"{dirname}/config.ini")
 
 
 try:
