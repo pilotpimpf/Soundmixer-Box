@@ -1,5 +1,3 @@
-from re import L
-from cv2 import add
 import hid
 import configparser
 
@@ -16,22 +14,18 @@ except:
             [1]
             name = Spotify
             process = Spotify.exe
-            multi = False
 
             [2]
             name = Discord
             process = Discord.exe
-            multi = False
 
             [3]
             name = Game
             process = fornite.exe,SuperHexagon.exe
-            multi = True
 
             [4]
             name = Chrome
             process = chrome.exe
-            multi = False
         """)
     
     print("Created default config file")
@@ -83,7 +77,7 @@ def finddevice():
 def listAssignment():
     for sec in config:
         if sec.isdigit():
-            if config.getboolean(sec, "multi"):
+            if "," in config.get(sec, "process"):
                 print(sec, config.get(sec, "name"), config.get(sec, "process"))
             else:
                 print(sec, config.get(sec, "name"))
@@ -114,8 +108,7 @@ def editAissignment():
 
     new = {
         'name': input("Name: "),
-        'process': input("Process: "),
-        'multi': input("Multiple programms? (True, False): ")
+        'process': input("Process: ")
     }
 
     config[item] = new
@@ -138,7 +131,7 @@ def addGame():
 
 
 def main():
-    print("1) List assignment\n2) Swap assignment\n3) Edit item\n4) Add game")
+    print("1) List assignment\n2) Swap assignment\n3) Edit item\n4) Add game\n5) Find device")
     
     inp = int(input("\nChoose number (0 to exit): "))
 
@@ -146,6 +139,7 @@ def main():
     elif inp == 2: swapAssignment()
     elif inp == 3: editAissignment()
     elif inp == 4: addGame()
+    elif inp == 5: finddevice()
     else: exit()
 
 if __name__ == "__main__":
