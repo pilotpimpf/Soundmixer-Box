@@ -1,4 +1,3 @@
-from re import A
 from time import sleep
 import hid
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume

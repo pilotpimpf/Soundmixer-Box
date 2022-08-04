@@ -14,15 +14,16 @@ def convert_x(n):
     if n >= 128:
         conv = n - 128
     else:
-        conv =  n + 128
+        conv = n + 128
     return round(conv*100 / 255)
 
 def convert_z(n):
     if n >= 128:
-        conv = n - 128
+        conv = n - 127
     else:
-        conv =  n + 128
-    return round(conv*100 / 255)
+        conv = n + 129
+    conv -= 84
+    return round(conv*100 / 86)
 
 def assign_buttons(report, device = "main"):
         if device == "main":
@@ -59,37 +60,13 @@ def assign_buttons(report, device = "main"):
             "b30" : bool(report[4] & 0b00100000),
             "b31" : bool(report[4] & 0b01000000),
             "b32" : bool(report[4] & 0b10000000),
-            "z" : convert_z(report[7]),
-            # "z" : convert_z(report[11]),
-            # "y" : round(int('{0:08b}'.format(report[8])[2:], 2)*100 / 63)
+            "x": convert_x(report[7]),
+            "y": round(int('{0:08b}'.format(report[8])[2:], 2)*100 / 62 - 2),
+            "z": convert_z(report[11])
             }
         return buttons
-
-# while True:
-#     report = gamepad.read(64)
-#     if report:
-#         buttons = assign_buttons(report)
-#         s = ""
-#         for k, v in buttons.items():
-#             s = s + f"{k}: {v} "
-#         print(s)
-#         #last = report[3]
-
 
 while True:
     report = gamepad.read(64)
     if report:
-        buttons = assign_buttons(report)
-        s = ""
-        for k, v in buttons.items():
-            print(f"{k}: {v} ")
-        print("")
-        time.sleep(3)
-        #last = report[3]
-
-# while True:
-#     report = gamepad.read(64)
-#     if report:
-#         print('{0:08b}'.format(report[1]))
-#         #print(report)
-#         #last = report[3]
+        print(int.from_bytes(bytearray(report), "big", signed=False))
