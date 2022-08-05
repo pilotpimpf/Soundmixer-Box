@@ -12,7 +12,7 @@ except:
         f.write("""
             [device]
             vendor_id = 9025
-            product_id = 32822
+            product_id = 32823
 
             [1]
             name = Spotify

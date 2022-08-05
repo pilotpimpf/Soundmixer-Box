@@ -15,7 +15,7 @@ except:
         f.write("""
             [device]
             vendor_id = 9025
-            product_id = 32822
+            product_id = 32823
 
             [1]
             name = Spotify
@@ -51,20 +51,12 @@ except:
     print("Failed to open Device")
     exit()
 
-def convert_x(n):
+def convert(n):
     if n >= 128:
         conv = n - 128
     else:
         conv = n + 128
     return round(conv*100 / 255)
-
-def convert_z(n):
-    if n >= 128:
-        conv = n - 127
-    else:
-        conv = n + 129
-    conv -= 84
-    return round(conv*100 / 86)
 
 def assign_buttons(report, device="main"):
     if device == "main":
@@ -101,9 +93,10 @@ def assign_buttons(report, device="main"):
             # "b30": bool(report[4] & 0b00100000),
             # "b31": bool(report[4] & 0b01000000),
             # "b32": bool(report[4] & 0b10000000),
-            "x": convert_x(report[7]),
+            "x": convert(report[7]),
             "y": round(int('{0:08b}'.format(report[8])[2:], 2)*100 / 62 - 2),
-            "z": convert_z(report[11])
+            "z": convert(report[11]),
+            "t": convert(report[21])
         }
     return buttons
 
@@ -141,35 +134,43 @@ def getAudio(process):
 lastX = getAudio(config.get("1", "process"))
 lastY = getAudio(config.get("2", "process"))
 lastZ = getAudio(config.get("3", "process"))
-last4 = getAudio(config.get("4", "process"))
+lastT = getAudio(config.get("4", "process"))
 
-print(f'{config.get("1", "name")}: {lastX}%  {config.get("2", "name")}: {lastY}%  {config.get("3", "name")}: {lastZ}%  {config.get("4", "name")}: {last4}%')
+print(f'{config.get("1", "name")}: {lastX}%  {config.get("2", "name")}: {lastY}%  {config.get("3", "name")}: {lastZ}%  {config.get("4", "name")}: {lastT}%')
 
 while True:
     report = gamepad.read(64)
     if report:
         buttons = assign_buttons(report)
-        x = buttons["x"]
+        x = buttons['x']
         if abs(lastX -x) >= 2:
-            if x >= 98: x = 100
+            if x >= 99: x = 100
             elif x <= 1: x= 0
-            setAudio(config.get("1", "process"), round(x/100, 2))
+            setAudio(config.get('1', 'process'), round(x/100, 2))
             lastX = x
             print(f"Set {config.get('1', 'name')} to {x}%")
 
-        y = buttons ["y"]
+        y = buttons ['y']
         if abs(lastY -y) >= 2:
-            if y >= 98: y = 100
+            if y >= 99: y = 100
             elif y <= 1: y= 0
-            setAudio(config.get("2", "process"), round(y/100, 2))
+            setAudio(config.get('2', 'process'), round(y/100, 2))
             lastY = y
             print(f"Set {config.get('2', 'name')} to {y}%")
 
-        z = buttons["z"]
+        z = buttons['z']
         if abs(lastZ -z) >= 2:
-            if z >= 98: z = 100
+            if z >= 99: z = 100
             elif z <= 1: z= 0
-            setAudio(config.get("3", "process"), round(z/100, 2))
+            setAudio(config.get('3', 'process'), round(z/100, 2))
             lastZ = z
             print(f"Set {config.get('3', 'name')} to {z}%")
+
+        t = buttons['t']
+        if abs(lastT -t) >= 2:
+            if t >= 99: t = 100
+            elif t <= 1: t= 0
+            setAudio(config.get('4', 'process'), round(t/100, 2))
+            lastT = t
+            print(f"Set {config.get('4', 'name')} to {t}%")
     sleep(0.01)
