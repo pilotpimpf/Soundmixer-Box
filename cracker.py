@@ -84,10 +84,13 @@ def finddevice():
     while True:
         report = gamepad.read(64)
         if report:
-            print(convert_x(report[21]))
-            # print(assign_buttons(report))
+            #print(round(int('{0:08b}'.format(report[8])[2:], 2)*100 / 62 - 2))
+            print(report[8])
+            #print(assign_buttons(report))
             #print(device_array)
             #break
+        time.sleep(0.01)
+        
 
 # gamepad = hid.device()
 # gamepad.open(0x2341,0x8036)
