@@ -2,8 +2,6 @@
 pip install pycaw
 pip install hidapi
 
-mklink ./Shortcuts/run.lnk run.bat
-
 echo:
 echo:
 
