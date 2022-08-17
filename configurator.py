@@ -12,7 +12,7 @@ except:
         f.write("""
             [device]
             vendor_id = 9025
-            product_id = 32822
+            product_id = 32823
 
             [1]
             name = Spotify
@@ -136,7 +136,9 @@ def addGame():
 def main():
     print("1) List assignment\n2) Swap assignment\n3) Edit item\n4) Add game\n5) Find device")
     
-    inp = int(input("\nChoose number (0 to exit): "))
+    try:
+        inp = int(input("\nChoose number (0 to exit): "))
+    except: exit()
 
     if inp == 1: listAssignment()
     elif inp == 2: swapAssignment()

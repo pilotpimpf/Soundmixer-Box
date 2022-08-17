@@ -1,6 +1,6 @@
 #include "Joystick.h"
 Joystick_ Joystick;
-int inp = 0;
+
 void setup()
 {
   Serial.begin(9600);
