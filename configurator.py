@@ -1,42 +1,39 @@
-from re import L
-from cv2 import add
 import hid
 import configparser
+import os
+
+dirname = os.path.dirname(__file__)
 
 config = configparser.ConfigParser()
 try:
-    config.read("config.ini")
+    config.read(f"{dirname}/config.ini")
 except:
-    with open("config.ini", "w") as f:
+    with open(f"{dirname}/config.ini", "w") as f:
         f.write("""
             [device]
             vendor_id = 9025
-            product_id = 32822
+            product_id = 32823
 
             [1]
             name = Spotify
             process = Spotify.exe
-            multi = False
 
             [2]
             name = Discord
             process = Discord.exe
-            multi = False
 
             [3]
             name = Game
             process = fornite.exe,SuperHexagon.exe
-            multi = True
 
             [4]
             name = Chrome
             process = chrome.exe
-            multi = False
         """)
     
     print("Created default config file")
 
-    config.read("config.ini")
+    config.read(f"{dirname}/config.ini")
 
 
 def finddevice():
@@ -76,14 +73,14 @@ def finddevice():
         if len(device_array) == 3:
             config['device']['serial_number'] = str(device_array[2])
 
-        with open("config.ini", "w") as cf:
+        with open(f"{dirname}/config.ini", "w") as cf:
             config.write(cf)
 
 
 def listAssignment():
     for sec in config:
         if sec.isdigit():
-            if config.getboolean(sec, "multi"):
+            if "," in config.get(sec, "process"):
                 print(sec, config.get(sec, "name"), config.get(sec, "process"))
             else:
                 print(sec, config.get(sec, "name"))
@@ -99,7 +96,7 @@ def swapAssignment():
     config[swap[0]] = second
     config[swap[1]] = first
 
-    config.write(open("config.ini", "w"))
+    config.write(open(f"{dirname}/config.ini", "w"))
 
     print()
     listAssignment()
@@ -114,12 +111,11 @@ def editAissignment():
 
     new = {
         'name': input("Name: "),
-        'process': input("Process: "),
-        'multi': input("Multiple programms? (True, False): ")
+        'process': input("Process: ")
     }
 
     config[item] = new
-    config.write(open("config.ini", "w"))
+    config.write(open(f"{dirname}/config.ini", "w"))
 
     print("\nSaved")
 
@@ -131,21 +127,24 @@ def addGame():
                 games = config.get(sec, "process")
                 games += "," + input("Process of game: ")
                 config.set(sec, "process", games)
-                config.write(open("config.ini", "w"))
+                config.write(open(f"{dirname}/config.ini", "w"))
                 print("\nSaved")
                 return
     print("No game item found")
 
 
 def main():
-    print("1) List assignment\n2) Swap assignment\n3) Edit item\n4) Add game")
+    print("1) List assignment\n2) Swap assignment\n3) Edit item\n4) Add game\n5) Find device")
     
-    inp = int(input("\nChoose number (0 to exit): "))
+    try:
+        inp = int(input("\nChoose number (0 to exit): "))
+    except: exit()
 
     if inp == 1: listAssignment()
     elif inp == 2: swapAssignment()
     elif inp == 3: editAissignment()
     elif inp == 4: addGame()
+    elif inp == 5: finddevice()
     else: exit()
 
 if __name__ == "__main__":
