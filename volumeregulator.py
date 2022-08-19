@@ -104,7 +104,6 @@ class volumeregulator:
                 "x": self.convert(report[7]),
                 "y": round(int('{0:08b}'.format(report[8])[2:], 2)*100 / 62 - 2),
                 "z": self.convert(report[11]),
-                "t": self.convert(report[21])
             }
         return buttons
 
@@ -177,13 +176,6 @@ class volumeregulator:
                     lastZ = z
                     print(f"Set {self.config.get('3', 'name')} to {z}%")
 
-                t = buttons['t']
-                if abs(lastT -t) >= 2:
-                    if t >= 99: t = 100
-                    elif t <= 1: t= 0
-                    self.setAudio(self.config.get('4', 'process'), round(t/100, 2))
-                    lastT = t
-                    print(f"Set {self.config.get('4', 'name')} to {t}%")
             sleep(0.01)
         self.reconnect()
 
