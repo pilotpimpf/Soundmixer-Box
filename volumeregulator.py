@@ -66,6 +66,14 @@ class volumeregulator:
             conv = n + 128
         return round(conv*100 / 255)
 
+    def convert_z(self,n):
+        if n >= 128:
+            conv = n - 127
+        else:
+            conv = n + 129
+        conv -= 84
+        return round(conv*100 / 86)
+
     def assign_buttons(self, report, device="main"):
         if device == "main":
             buttons = {
@@ -103,7 +111,7 @@ class volumeregulator:
                 # "b32": bool(report[4] & 0b10000000),
                 "x": self.convert(report[7]),
                 "y": round(int('{0:08b}'.format(report[8])[2:], 2)*100 / 62 - 2),
-                "z": self.convert(report[11]),
+                "z": self.convert_z(report[11]),
             }
         return buttons
 
