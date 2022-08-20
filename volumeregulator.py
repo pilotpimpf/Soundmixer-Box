@@ -3,19 +3,45 @@ import hid
 from pycaw.pycaw import AudioUtilities, ISimpleAudioVolume
 import configparser
 import os
+import pystray
+import PIL.Image
+from sys import exit
+import sys
+import _thread
+import os
+
+def resource_path(relative_path):
+    if getattr(sys, 'frozen', False):
+        application_path = os.path.dirname(sys.executable)
+    elif __file__:
+        application_path = os.path.dirname(__file__)
+
+    return os.path.join(application_path, relative_path)
 
 class volumeregulator:
     def __init__(self) -> None:
-        self.startup()
+        image = PIL.Image.open(resource_path("images/Soundmixer-Box-icon.png"))
+        self.icon = pystray.Icon("Soundmixer-Box", image, menu=pystray.Menu(
+            pystray.MenuItem("Config", self.openconfig),
+            pystray.MenuItem("Close", self.stop)
+            ))
+        self.icon.run_detached()
+        self.startup(first=True)
 
-    def startup(self):
-        dirname = os.path.dirname(__file__)
+    def openconfig(self):
+        os.startfile(resource_path("configurator.exe"))
+
+    def stop(self):
+        self.icon.stop()
+        _thread.interrupt_main()
+
+    def startup(self, first=False):
         config = configparser.ConfigParser()
 
         try:
-            config.read(f"{dirname}/config.ini")
+            config.read(resource_path(f"config.ini"))
         except:
-            with open(f"{dirname}/config.ini", "w") as f:
+            with open(resource_path(f"config.ini", "w")) as f:
                 f.write("""
                     [device]
                     vendor_id = 9025
@@ -40,14 +66,14 @@ class volumeregulator:
             
             print("Created default config file")
 
-            config.read(f"{dirname}/config.ini")
-
+            config.read(resource_path(f"config.ini"))
 
         try:
             gamepad = hid.device()
             try:
                 gamepad.open(int(config.get("device", "vendor_id")), int(config.get("device", "product_id")), config.get("device", "serial_number"))
             except:
+                print("try without serial number")
                 gamepad.open(int(config.get("device", "vendor_id")), int(config.get("device", "product_id")))
                 print("No serial number used")
             gamepad.set_nonblocking(True)
@@ -56,9 +82,10 @@ class volumeregulator:
             self.config = config
             return
         except:
-            print("Failed to open Device")
-            exit()
-        
+            print("Failed to open Device -exiting")
+            if not first: exit()
+            else: self.reconnect()
+         
     def convert(self,n):
         if n >= 128:
             conv = n - 128
