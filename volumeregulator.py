@@ -8,6 +8,7 @@ import PIL.Image
 from sys import exit
 import sys
 import _thread
+import os
 
 def resource_path(relative_path):
     if getattr(sys, 'frozen', False):
@@ -20,15 +21,21 @@ def resource_path(relative_path):
 class volumeregulator:
     def __init__(self) -> None:
         image = PIL.Image.open(resource_path("images/Soundmixer-Box-icon.png"))
-        self.icon = pystray.Icon("Soundmixer-Box", image, menu=pystray.Menu(pystray.MenuItem("Close", self.stop)))
+        self.icon = pystray.Icon("Soundmixer-Box", image, menu=pystray.Menu(
+            pystray.MenuItem("Config", self.openconfig),
+            pystray.MenuItem("Close", self.stop)
+            ))
         self.icon.run_detached()
-        self.startup()
+        self.startup(first=True)
+
+    def openconfig(self):
+        os.startfile(resource_path("configurator.exe"))
 
     def stop(self):
         self.icon.stop()
         _thread.interrupt_main()
         
-    def startup(self):
+    def startup(self, first=False):
         dirname = os.path.dirname(__file__)
         config = configparser.ConfigParser()
 
@@ -62,8 +69,6 @@ class volumeregulator:
 
             config.read(resource_path(f"config.ini"))
 
-        print(config)
-
         try:
             gamepad = hid.device()
             try:
@@ -79,7 +84,8 @@ class volumeregulator:
             return
         except:
             print("Failed to open Device -exiting")
-            exit()
+            if not first: exit()
+            else: self.reconnect()
         
     def convert(self,n):
         if n >= 128:
