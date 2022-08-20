@@ -1,0 +1,22 @@
+Processing config: C:\Program Files (x86)\NSIS\nsisconf.nsh
+Processing script file: "C:\Users\telsc\AppData\Local\Temp\nsw59B6.tmp" (ACP)
+
+Processed 1 file, writing output (x86-unicode):
+
+Output: "C:\Users\telsc\Documents\GitHub\Soundmixer-Box\setup.exe"
+Install: 4 pages (256 bytes), 2 sections (2 required) (4144 bytes), 426 instructions (11928 bytes), 233 strings (8180 bytes), 1 language table (306 bytes).
+Uninstall: 3 pages (256 bytes), 1 section (2072 bytes), 335 instructions (9380 bytes), 224 strings (8788 bytes), 1 language table (286 bytes).
+Datablock optimizer saved 188 bytes (~0.0%).
+
+Using zlib compression.
+
+EXE header size:               53248 / 39936 bytes
+Install code:                   4709 / 25278 bytes
+Install data:              111488492 / 112056325 bytes
+Uninstall code+data:           31171 / 35492 bytes
+CRC (0x11AB1C2B):                  4 / 4 bytes
+
+Total size:                111577624 / 112157035 bytes (99.4%)
+
+1 warning:
+  9000: Insecure filename "setup.exe", Windows will unsafely load compatibility shims into the process.

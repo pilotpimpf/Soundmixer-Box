@@ -1,14 +1,21 @@
 import hid
 import configparser
 import os
+import sys
 
-dirname = os.path.dirname(__file__)
+def resource_path(relative_path):
+    if getattr(sys, 'frozen', False):
+        application_path = os.path.dirname(sys.executable)
+    elif __file__:
+        application_path = os.path.dirname(__file__)
+
+    return os.path.join(application_path, relative_path)
 
 config = configparser.ConfigParser()
 try:
-    config.read(f"{dirname}/config.ini")
+    config.read(resource_path("config.ini"))
 except:
-    with open(f"{dirname}/config.ini", "w") as f:
+    with open(resource_path("config.ini"), "w") as f:
         f.write("""
             [device]
             vendor_id = 9025
@@ -33,7 +40,7 @@ except:
     
     print("Created default config file")
 
-    config.read(f"{dirname}/config.ini")
+    config.read(resource_path("config.ini"))
 
 
 def finddevice():
@@ -73,7 +80,7 @@ def finddevice():
         if len(device_array) == 3:
             config['device']['serial_number'] = str(device_array[2])
 
-        with open(f"{dirname}/config.ini", "w") as cf:
+        with open(resource_path("config.ini"), "w") as cf:
             config.write(cf)
 
 
@@ -96,7 +103,7 @@ def swapAssignment():
     config[swap[0]] = second
     config[swap[1]] = first
 
-    config.write(open(f"{dirname}/config.ini", "w"))
+    config.write(open(resource_path("config.ini"), "w"))
 
     print()
     listAssignment()
@@ -115,7 +122,7 @@ def editAissignment():
     }
 
     config[item] = new
-    config.write(open(f"{dirname}/config.ini", "w"))
+    config.write(open(resource_path("config.ini"), "w"))
 
     print("\nSaved")
 
@@ -127,7 +134,7 @@ def addGame():
                 games = config.get(sec, "process")
                 games += "," + input("Process of game: ")
                 config.set(sec, "process", games)
-                config.write(open(f"{dirname}/config.ini", "w"))
+                config.write(open(resource_path("config.ini"), "w"))
                 print("\nSaved")
                 return
     print("No game item found")
@@ -146,6 +153,8 @@ def main():
     elif inp == 4: addGame()
     elif inp == 5: finddevice()
     else: exit()
+    print("\n\n")
+    main()
 
 if __name__ == "__main__":
     main()
