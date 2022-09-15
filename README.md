@@ -19,15 +19,13 @@ Attach a USB-Cable to your board and plug it into your PC. Upload the "arduino_p
 Once it's done, your PC should identify your board as a game controller. Check it. 
 
 ### Software
-1. Make sure you have a recent version of Python installed
-1. Clone or download this repository
-1. Plug in your device.
-1. Run "setup.bat" and choose "Find device". Pick the device called like your board with its number
+1. Download latest installer and execute it
+1. Plug in your device
+1. Run the installed program, go to systemtray, right click symbol and open Configurator. Choose "Find device". Pick the device called like your board with its number
 1. After testing, confirm to save the board
-1. Run "run.bat"
+1. Restart the program
 1. Should work :)
 
-When you close the window of the batch file, the sliders won't work anymore. If you want to run it in the background, choose "run_in_backround.bat" to start the service and "stop.bat" to stop it. You also can put "run_in_background.bat" in autostart. 
 
 ## Configuration
-Run configurator.py and choose one of the listed options.
+Run configurator.exe or sytemtray icon --> right click --> Configurator and choose one of the listed options.
