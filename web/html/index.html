@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/main.css">
+    <title>Soundmixer-Box</title>
+    <script type="text/javascript" src="../config.json"></script>
+    <script src="/eel.js"></script>
+    <script src="../js/index.js"></script>
+</head>
+
+<body>
+    <div>
+        <h1>Soundmixer-Box Config</h1>
+    </div>
+    <div class="menu-bar">
+        <div class="menu-entry">
+            <div class="running">
+                <div class="circle"></div>
+                <p>RUNNING</p>
+            </div>
+            <div class="start-stop">
+                <button type="button" onclick="start_stop(this)">STOP</button>
+            </div>
+        </div>
+        <div class="menu-entry">
+            <select id="app_listbox" name="Applications" size="5" multiple>
+            </select>
+        </div>
+        <div class="menu-entry">
+            <div class="add-delete">
+                <button type="button" onclick="startup()">ADD</button>
+                <button type="button">ADD GROUP</button>
+                <button type="button">EDIT</button>
+                <button type="button" onclick="deleteapp()">DELETE</button>
+            </div>
+            
+        </div>
+        <div class="menu-entry">
+            <div class="add-delete">
+                <button type="button" onclick="startup()">SAVE ALL</button>
+                <button type="button">CANCEL</button>
+            </div>
+            
+        </div>        
+    </div>
+    <div class="channel-bar">
+        <div class="channel">
+            <h3>Channel 1</h3>
+            <select class="channel_select" id="channel1">
+            </select>
+        </div>
+        <div class="channel">
+            <h3>Channel 2</h3>
+            <select class="channel_select" id="channel2">
+            </select>
+        </div>
+        <div class="channel">
+            <h3>Channel 3</h3>
+            <select class="channel_select" id="channel3">
+            </select>
+        </div>
+        <div class="channel">
+            <h3>Channel 4</h3>
+            <select class="channel_select" id="channel4"> 
+            </select>
+        </div>
+    </div>
+</body>
+
+</html>

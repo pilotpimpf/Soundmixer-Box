@@ -1,0 +1,26 @@
+{
+    "applications": [
+        {
+            "name": "Spotify",
+            "process": "Spotify.exe"
+        },
+        {
+            "name": "Chrome",
+            "process": "chrome.exe"
+        },
+        {
+            "name": "Discord",
+            "process": "Discord.exe"
+        },
+        {
+            "name": "Fortnite",
+            "process": "fortnite.exe"
+        }
+    ],
+    "channels":{
+        "1":"Spotify",
+        "2":"Discord",
+        "3":"Fortnite",
+        "4":"Chrome"
+    }
+}

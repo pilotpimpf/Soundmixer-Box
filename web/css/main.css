@@ -1,0 +1,101 @@
+body{
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #1e1e1e;
+    color: #cccccc;
+    text-align: center;
+}
+
+.channel-bar{
+    height: 300px;
+    display: flex;
+}
+.channel{
+    height: 100%;
+    width: 25%;
+    text-align: center;
+}
+.channel select{
+    width: 70%;
+    background-color: #252526;
+    border-color: #41414163;
+}
+
+.menu-bar{
+    height: 200px;
+    display: flex;
+    padding-left: 50px;
+    padding-right: 50px;
+}
+
+.menu-entry{
+    width: 25%;
+    height: 100%;
+}
+
+.running{
+    display: flex;
+    align-items: center;
+    height: 50%;
+    width: 100%;
+}
+
+.running p{
+    width: min-content;
+}
+.circle{
+    background-color: green;
+
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.start-stop{
+    width: 100%;
+    height: 50%;
+}
+
+.start-stop button{
+    width: 70%;
+    height: 50%;
+
+    background-color:#252526 ;
+    border-color: #41414163;
+    color: #cccccc;
+    font-weight: bold;
+    float: left;
+}
+
+.menu-entry select{
+    width: 100%;
+    height: 100%;
+    background-color:#252526 ;
+    border-color: #41414163;
+    color: #cccccc;
+}
+
+.add-delete{
+    width: 100%;
+    height: 100%;
+    padding-left: 50px;
+}
+
+.add-delete button{
+    width: 70%;
+    height: 20%;
+
+    margin-bottom: 13px;
+    
+    background-color:#252526 ;
+    border-color: #41414163;
+    color: #cccccc;
+    font-weight: bold;
+    float: left;
+}
+
+.channel_select{
+    background-color:#252526 ;
+    border-color: #41414163;
+    color: #cccccc;
+}
