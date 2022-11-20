@@ -10,6 +10,7 @@
     <script type="text/javascript" src="../config.json"></script>
     <script src="/eel.js"></script>
     <script src="../js/index.js"></script>
+    <link rel="shortcut icon" href="../img/Soundmixer-Box-icon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -24,6 +25,8 @@
             </div>
             <div class="start-stop">
                 <button type="button" onclick="start_stop(this)">STOP</button>
+                <button type="button" onclick="detectDevice()">DETECT DEVICE</button>
+                <p id="device_name"></p>
             </div>
         </div>
         <div class="menu-entry">
@@ -32,41 +35,65 @@
         </div>
         <div class="menu-entry">
             <div class="add-delete">
-                <button type="button" onclick="update()">ADD</button>
-                <button type="button">ADD GROUP</button>
-                <button type="button">EDIT</button>
+                <button type="button" onclick="document.getElementById('inpfile').click()">ADD</button>
+                <input type="file" id="inpfile" style="display: none;" oninput="addapp(this)">
+                <div id="myModal" class="modal">
+
+                    <!-- Modal content -->
+                    <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p id="modalpapp">Name for </p>
+                        <input type="text" id="nameinp" required>
+                        <select id="device_listbox" name="Devices" size="10" style="display: none;">
+                        </select>
+                        <br>
+                        <button class="modalbtn" id="savename" type="button">SAVE</button>
+                    </div>
+
+                </div>
+
+                <button type="button" onclick="addgroup()">ADD GROUP</button>
+                <button type="button" onclick="renameapp()">EDIT</button>
                 <button type="button" onclick="deleteapp()">DELETE</button>
             </div>
-            
+
         </div>
         <div class="menu-entry">
-            <div class="add-delete">
-                <button type="button" onclick="startup()">SAVE ALL</button>
-                <button type="button">CANCEL</button>
+            <div class="cancel-save">
+                <button type="button" onclick="saveAll()">SAVE ALL</button>
+                <button type="button" onclick="cancel()">CANCEL</button>
             </div>
-            
-        </div>        
+
+        </div>
     </div>
     <div class="channel-bar">
         <div class="channel">
             <h3>Channel 1</h3>
-            <select class="channel_select" id="channel1">
+            <select class="channel_select" id="channel1" onchange="changeassignment(this)">
             </select>
+            <button class="canncel-activ-btn" type="button" channel="1" onclick="toggleactive(this)">ACTIVE</button>
+            <button class="canncel-mode-btn" channel="1" type="button">NORMAL</button>
         </div>
         <div class="channel">
             <h3>Channel 2</h3>
-            <select class="channel_select" id="channel2">
+            <select class="channel_select" id="channel2" onchange="changeassignment(this)">
             </select>
+            <button class="canncel-activ-btn" type="button" channel="2" onclick="toggleactive(this)">ACTIVE</button>
+            <button class="canncel-mode-btn" channel="2" type="button">NORMAL</button>
         </div>
         <div class="channel">
             <h3>Channel 3</h3>
-            <select class="channel_select" id="channel3">
+            <select class="channel_select" id="channel3" onchange="changeassignment(this)">
             </select>
+            <button class="canncel-activ-btn" type="button" channel="3" onclick="toggleactive(this)">ACTIVE</button>
+            <button class="canncel-mode-btn" channel="3" type="button">NORMAL</button>
         </div>
         <div class="channel">
             <h3>Channel 4</h3>
-            <select class="channel_select" id="channel4"> 
+            <select class="channel_select" id="channel4" onchange="changeassignment(this)">
             </select>
+            <button class="canncel-activ-btn" type="button" channel="4" onclick="toggleactive(this)">ACTIVE</button>
+            <button class="canncel-mode-btn" channel="4" type="button">NORMAL</button>
         </div>
     </div>
 </body>
