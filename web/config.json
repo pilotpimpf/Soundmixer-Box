@@ -2,37 +2,68 @@
     "applications": [
         {
             "name": "Spotify",
-            "process": "Spotify.exe"
+            "process": [
+                "Spotify.exe"
+            ]
         },
         {
             "name": "Chrome",
-            "process": "chrome.exe"
+            "process": [
+                "chrome.exe"
+            ]
         },
         {
             "name": "Discord",
-            "process": "Discord.exe"
+            "process": [
+                "Discord.exe"
+            ]
         },
         {
             "name": "Fortnite",
-            "process": "fortnite.exe"
+            "process": [
+                "fortnite.exe"
+            ]
+        },
+        {
+            "name": "FlightSimulator",
+            "process": [
+                "FlightSimulator.exe"
+            ]
         }
     ],
     "channels": {
         "1": {
-            "app": "Spotify",
+            "name": "Spotify",
+            "process": [
+                "Spotify.exe"
+            ],
             "active": true
         },
         "2": {
-            "app": "Chrome",
-            "active": true
+            "name": "Chrome",
+            "active": true,
+            "process": [
+                "chrome.exe"
+            ]
         },
         "3": {
-            "app": "Discord",
-            "active": true
+            "name": "Discord",
+            "active": true,
+            "process": [
+                "Discord.exe"
+            ]
         },
         "4": {
-            "app": null,
-            "active": false
+            "name": "Fortnite",
+            "active": true,
+            "process": [
+                "fortnite.exe"
+            ]
         }
+    },
+    "device": {
+        "vendor_id": "9025",
+        "product_id": "32822",
+        "serial_number": "HIDNH"
     }
 }
