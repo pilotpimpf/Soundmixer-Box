@@ -1,0 +1,1 @@
+{"applications": [{"name": "Spotify", "process": "Spotify.exe"}, {"name": "Discord", "process": "Discord.exe"}, {"name": "Fortnite", "process": "fortnite.exe"}], "channels": {"1": {"app": "Spotify", "active": true}, "2": {"app": null, "active": false}, "3": {"app": "Discord", "active": true}, "4": {"app": null, "active": false}}}

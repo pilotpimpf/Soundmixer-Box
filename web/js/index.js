@@ -5,15 +5,8 @@ async function start_stop(btn) {
     btn.innerHTML = msg;
     console.log(msg);
 }
-
-function test(ele) {
-    ele.innerHTML = "test"
-    console.log(ele);
-}
-
-async function startup() {
-
-    let conf = await (await (fetch("../config.json"))).json()
+async function update() {
+    let conf = await (await (fetch("../config_tmp.json"))).json()
 
     let s = "";
     for (const i of conf.applications) {
@@ -29,9 +22,15 @@ async function startup() {
 
     let i = 0;
     for (const key in conf.channels) {
-        channels[i].value = conf.channels[key]
+        channels[i].value = conf.channels[key].app
+        // console.log(conf.channels[key].app);
         i +=1;
     }
+}
+
+async function startup(){
+    await eel.restore_config()();
+    update();  
 }
 startup();
 
@@ -48,4 +47,12 @@ async function deleteapp() {
     }
 
     console.log(selected);
+    if (await eel.deleteapp(selected)){
+        update();
+    }
+}
+
+async function cancel() {
+    await eel.restore_config();
+    await update()
 }
